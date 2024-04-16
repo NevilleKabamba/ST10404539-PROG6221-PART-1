@@ -23,5 +23,7 @@ RecipeApp is a simple console application for managing recipes. It allows users 
   - `Recipe.cs`: Defines the `Recipe` class representing a recipe, including methods for displaying, scaling, and resetting quantities.
   - `Ingredient.cs`: Defines the `Ingredient` class representing an ingredient in a recipe.
   - `Step.cs`: Defines the `Step` class representing a step in a recipe.
-
- ST10404539
+ 
+ ## Github Link 
+   https://github.com/NevilleKabamba/ST10404539-PROG6221-PART-1.git
+    ST10404539
