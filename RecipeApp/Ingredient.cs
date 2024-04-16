@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace RecipeApp
 {
-    // Class to represent an ingredient in a recipe
     public class Ingredient
     {
         public string Name { get; set; } // Name of the ingredient
