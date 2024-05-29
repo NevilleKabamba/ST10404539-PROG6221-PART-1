@@ -9,7 +9,7 @@ namespace RecipeApp
             // Initialize currentRecipe to null, it will hold the currently active recipe
             Recipe currentRecipe = null;
 
-            // Display main menu and process user input
+            // Display main menu and process user input.
             while (true)
             {
                 Console.WriteLine("\nRecipe Manager");
