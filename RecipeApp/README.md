@@ -5,30 +5,40 @@ RecipeApp is a console application designed for managing recipes. It allows user
 ## Features
 
 Create New Recipes: Users can enter an unlimited number of recipes, each with a unique name.
+
 Ingredient Details: For each ingredient, users can enter the quantity, unit, calories, and food group.
+
 Recipe Display: Display all recipes in alphabetical order and select a specific recipe to view its details.
+
 Scale Recipes: Scale the quantities of ingredients in a recipe by a specified factor (e.g., 0.5, 2, 3).
+
 Reset Quantities: Reset the quantities of all ingredients in a recipe to their original values.
+
 Calorie Calculation: Calculate and display the total calories for a recipe.
+
 Calorie Notification: Notify the user if the total calories of a recipe exceed 300.
+
 Clear Recipes: Clear all recipes from the list.
+
 Event Handling: Use delegates to notify the user when a recipe exceeds 300 calories.
 Installation
 
-To install and run RecipeApp, follow these steps:
+## To install and run RecipeApp, follow these steps:
 
 Clone the Repository: Clone the repository to your local machine using the following command:
 
 sh
 Copy code
+
 git clone https://github.com/NevilleKabamba/ST10404539-PROG6221-PART-1.git
+
 Open the Solution: Open the solution in an IDE such as Visual Studio or Visual Studio Code.
 
 Build the Solution: Build the solution to ensure all dependencies are resolved.
 
 Run the Application: Run the application and follow the prompts on the console to perform various operations.
 
-How To Use
+## How To Use
 
 ## Create a New Recipe:
 
