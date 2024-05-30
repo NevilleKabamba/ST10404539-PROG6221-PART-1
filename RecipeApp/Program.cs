@@ -10,18 +10,19 @@ namespace RecipeApp
         {
             List<Recipe> recipes = new List<Recipe>();
 
-            // Display main menu and process user input
             while (true)
             {
-                Console.WriteLine("\nRecipe Manager");
+                Console.Clear();
+                Console.WriteLine("Welcome to the Recipe Manager");
                 Console.WriteLine("1. Create a new recipe");
                 Console.WriteLine("2. Display all recipes");
                 Console.WriteLine("3. Select and display a recipe");
-                Console.WriteLine("4. Scale recipe");
-                Console.WriteLine("5. Reset quantities");
-                Console.WriteLine("6. Clear recipes");
+                Console.WriteLine("4. Scale a recipe");
+                Console.WriteLine("5. Reset ingredient quantities");
+                Console.WriteLine("6. Clear all recipes");
                 Console.WriteLine("7. Exit");
 
+                // Get user choice
                 int choice = GetIntInput("Enter your choice: ");
 
                 switch (choice)
@@ -51,12 +52,16 @@ namespace RecipeApp
                         Console.WriteLine("Error, please enter a valid choice.");
                         break;
                 }
+
+                Console.WriteLine("\nPress any key to continue...");
+                Console.ReadKey();
             }
         }
 
+        // Function to create a new recipe
         static Recipe CreateRecipe()
         {
-            Console.Write("Please enter recipe name: ");
+            Console.Write("Enter recipe name: ");
             string name = Console.ReadLine();
 
             int numIngredients = GetIntInput("Enter the number of ingredients: ");
@@ -64,9 +69,10 @@ namespace RecipeApp
 
             Recipe recipe = new Recipe(name);
 
+            // Add ingredients to the recipe
             for (int i = 0; i < numIngredients; i++)
             {
-                Console.WriteLine($"Ingredient {i + 1}:");
+                Console.WriteLine($"\nIngredient {i + 1}:");
                 Console.Write("Name: ");
                 string ingredientName = Console.ReadLine();
                 double quantity = GetDoubleInput("Quantity: ");
@@ -79,16 +85,27 @@ namespace RecipeApp
                 recipe.AddIngredient(new Ingredient(ingredientName, quantity, unit, calories, foodGroup));
             }
 
+            // Add steps to the recipe
             for (int i = 0; i < numSteps; i++)
             {
-                Console.Write($"Step {i + 1}: ");
+                Console.Write($"\nStep {i + 1}: ");
                 string description = Console.ReadLine();
                 recipe.AddStep(new Step(description));
             }
 
+            // Subscribe to the event to notify when calories exceed 300
+            recipe.RecipeCaloriesExceeded += RecipeCaloriesExceededHandler;
+
             return recipe;
         }
 
+        // Handler for the RecipeCaloriesExceeded event
+        static void RecipeCaloriesExceededHandler(string recipeName)
+        {
+            Console.WriteLine($"\nWarning: The total calories in the recipe '{recipeName}' exceed 300 calories!");
+        }
+
+        // Function to display all recipes
         static void DisplayAllRecipes(List<Recipe> recipes)
         {
             Console.WriteLine("\nAll Recipes:");
@@ -98,6 +115,7 @@ namespace RecipeApp
             }
         }
 
+        // Function to display a selected recipe
         static void DisplaySelectedRecipe(List<Recipe> recipes)
         {
             Console.Write("Enter the name of the recipe to display: ");
@@ -114,6 +132,7 @@ namespace RecipeApp
             }
         }
 
+        // Function to scale a recipe
         static void ScaleRecipe(List<Recipe> recipes)
         {
             Console.Write("Enter the name of the recipe to scale: ");
@@ -131,6 +150,7 @@ namespace RecipeApp
             }
         }
 
+        // Function to reset ingredient quantities in a recipe
         static void ResetQuantities(List<Recipe> recipes)
         {
             Console.Write("Enter the name of the recipe to reset: ");
@@ -147,6 +167,7 @@ namespace RecipeApp
             }
         }
 
+        // Helper function to get integer input from the user
         static int GetIntInput(string message)
         {
             while (true)
@@ -161,6 +182,7 @@ namespace RecipeApp
             }
         }
 
+        // Helper function to get double input from the user
         static double GetDoubleInput(string message)
         {
             while (true)
