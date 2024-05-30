@@ -5,10 +5,11 @@ namespace RecipeApp
 {
     public class Recipe
     {
-        public string Name { get; set; }
-        private List<Ingredient> Ingredients { get; set; }
-        private List<Step> Steps { get; set; }
+        public string Name { get; set; } // Name of the recipe
+        private List<Ingredient> Ingredients { get; set; } // List of ingredients
+        private List<Step> Steps { get; set; } // List of steps
 
+        // Event to notify when total calories exceed 300
         public event Action<string> RecipeCaloriesExceeded;
 
         public Recipe(string name)
@@ -18,6 +19,7 @@ namespace RecipeApp
             Steps = new List<Step>();
         }
 
+        // Method to add an ingredient to the recipe
         public void AddIngredient(Ingredient ingredient)
         {
             Ingredients.Add(ingredient);
@@ -27,11 +29,13 @@ namespace RecipeApp
             }
         }
 
+        // Method to add a step to the recipe
         public void AddStep(Step step)
         {
             Steps.Add(step);
         }
 
+        // Method to display the recipe details
         public void DisplayRecipe()
         {
             Console.WriteLine($"\nRecipe: {Name}");
@@ -52,6 +56,7 @@ namespace RecipeApp
             Console.WriteLine($"\nTotal Calories: {GetTotalCalories()}");
         }
 
+        // Method to scale the recipe ingredients by a factor
         public void ScaleRecipe(double factor)
         {
             foreach (var ingredient in Ingredients)
@@ -60,6 +65,7 @@ namespace RecipeApp
             }
         }
 
+        // Method to reset ingredient quantities to 1
         public void ResetQuantities()
         {
             foreach (var ingredient in Ingredients)
@@ -68,6 +74,7 @@ namespace RecipeApp
             }
         }
 
+        // Method to get the total calories of the recipe
         public int GetTotalCalories()
         {
             int totalCalories = 0;
@@ -79,4 +86,5 @@ namespace RecipeApp
         }
     }
 }
+
 
