@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RecipeApp
 {
@@ -6,80 +8,52 @@ namespace RecipeApp
     {
         static void Main(string[] args)
         {
-            // Initialize currentRecipe to null, it will hold the currently active recipe
-            Recipe currentRecipe = null;
+            List<Recipe> recipes = new List<Recipe>();
 
-            // Display main menu and process user input.
+            // Display main menu and process user input
             while (true)
             {
                 Console.WriteLine("\nRecipe Manager");
                 Console.WriteLine("1. Create a new recipe");
-                Console.WriteLine("2. Display Existing recipe");
-                Console.WriteLine("3. Scale recipe");
-                Console.WriteLine("4. Reset quantities");
-                Console.WriteLine("5. Clear recipe");
-                Console.WriteLine("6. Exit");
+                Console.WriteLine("2. Display all recipes");
+                Console.WriteLine("3. Select and display a recipe");
+                Console.WriteLine("4. Scale recipe");
+                Console.WriteLine("5. Reset quantities");
+                Console.WriteLine("6. Clear recipes");
+                Console.WriteLine("7. Exit");
 
-                // Get user choice
                 int choice = GetIntInput("Enter your choice: ");
 
                 switch (choice)
                 {
                     case 1:
-                        // Create a new recipe and assign it to currentRecipe
-                        currentRecipe = CreateRecipe();
+                        recipes.Add(CreateRecipe());
                         break;
                     case 2:
-                        // Display the existing recipe if available
-                        if (currentRecipe == null)
-                        {
-                            Console.WriteLine("No recipe created yet.");
-                        }
-                        else
-                        {
-                            currentRecipe.DisplayRecipe();
-                        }
+                        DisplayAllRecipes(recipes);
                         break;
                     case 3:
-                        // Scale the existing recipe by a factor provided by the user
-                        if (currentRecipe == null)
-                        {
-                            Console.WriteLine("No recipe to scale.");
-                        }
-                        else
-                        {
-                            double factor = GetDoubleInput("Enter scaling factor (0.5, 2, or 3): ");
-                            currentRecipe.ScaleRecipe(factor);
-                        }
+                        DisplaySelectedRecipe(recipes);
                         break;
                     case 4:
-                        // Reset quantities of the existing recipe
-                        if (currentRecipe == null)
-                        {
-                            Console.WriteLine("No recipe to reset.");
-                        }
-                        else
-                        {
-                            currentRecipe.ResetQuantities();
-                        }
+                        ScaleRecipe(recipes);
                         break;
                     case 5:
-                        // Clear the currently active recipe
-                        currentRecipe = null;
-                        Console.WriteLine("Recipe cleared.");
+                        ResetQuantities(recipes);
                         break;
                     case 6:
-                        // Exit the program
+                        recipes.Clear();
+                        Console.WriteLine("All recipes cleared.");
+                        break;
+                    case 7:
                         return;
                     default:
-                        // Handle invalid input
-                        Console.WriteLine(" Error please enter a valid choice.");
+                        Console.WriteLine("Error, please enter a valid choice.");
                         break;
                 }
             }
         }
 
-        // Create a new recipe by gathering details from the user
         static Recipe CreateRecipe()
         {
             Console.Write("Please enter recipe name: ");
@@ -88,10 +62,8 @@ namespace RecipeApp
             int numIngredients = GetIntInput("Enter the number of ingredients: ");
             int numSteps = GetIntInput("Enter the number of steps: ");
 
-            // Create a new Recipe object
-            Recipe recipe = new Recipe(name, numIngredients, numSteps);
+            Recipe recipe = new Recipe(name);
 
-            // Gather details for each ingredient
             for (int i = 0; i < numIngredients; i++)
             {
                 Console.WriteLine($"Ingredient {i + 1}:");
@@ -100,24 +72,81 @@ namespace RecipeApp
                 double quantity = GetDoubleInput("Quantity: ");
                 Console.Write("Unit: ");
                 string unit = Console.ReadLine();
+                int calories = GetIntInput("Calories: ");
+                Console.Write("Food Group: ");
+                string foodGroup = Console.ReadLine();
 
-                // Create an Ingredient object and add it to the recipe
-                recipe.Ingredients[i] = new Ingredient { Name = ingredientName, Quantity = quantity, Unit = unit };
+                recipe.AddIngredient(new Ingredient(ingredientName, quantity, unit, calories, foodGroup));
             }
 
-            // Gather details for each step
             for (int i = 0; i < numSteps; i++)
             {
                 Console.Write($"Step {i + 1}: ");
                 string description = Console.ReadLine();
-                // Create a Step object and add it to the recipe
-                recipe.Steps[i] = new Step { Description = description };
+                recipe.AddStep(new Step(description));
             }
 
             return recipe;
         }
 
-        // Get integer input from the user with error handling
+        static void DisplayAllRecipes(List<Recipe> recipes)
+        {
+            Console.WriteLine("\nAll Recipes:");
+            foreach (var recipe in recipes.OrderBy(r => r.Name))
+            {
+                Console.WriteLine(recipe.Name);
+            }
+        }
+
+        static void DisplaySelectedRecipe(List<Recipe> recipes)
+        {
+            Console.Write("Enter the name of the recipe to display: ");
+            string name = Console.ReadLine();
+            var recipe = recipes.FirstOrDefault(r => r.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+
+            if (recipe != null)
+            {
+                recipe.DisplayRecipe();
+            }
+            else
+            {
+                Console.WriteLine("Recipe not found.");
+            }
+        }
+
+        static void ScaleRecipe(List<Recipe> recipes)
+        {
+            Console.Write("Enter the name of the recipe to scale: ");
+            string name = Console.ReadLine();
+            var recipe = recipes.FirstOrDefault(r => r.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+
+            if (recipe != null)
+            {
+                double factor = GetDoubleInput("Enter scaling factor (0.5, 2, or 3): ");
+                recipe.ScaleRecipe(factor);
+            }
+            else
+            {
+                Console.WriteLine("Recipe not found.");
+            }
+        }
+
+        static void ResetQuantities(List<Recipe> recipes)
+        {
+            Console.Write("Enter the name of the recipe to reset: ");
+            string name = Console.ReadLine();
+            var recipe = recipes.FirstOrDefault(r => r.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+
+            if (recipe != null)
+            {
+                recipe.ResetQuantities();
+            }
+            else
+            {
+                Console.WriteLine("Recipe not found.");
+            }
+        }
+
         static int GetIntInput(string message)
         {
             while (true)
@@ -128,11 +157,10 @@ namespace RecipeApp
                 {
                     return value;
                 }
-                Console.WriteLine("Error . Please enter a valid number.");
+                Console.WriteLine("Error. Please enter a valid number.");
             }
         }
 
-        // Get double input from the user with error handling
         static double GetDoubleInput(string message)
         {
             while (true)
@@ -143,7 +171,7 @@ namespace RecipeApp
                 {
                     return value;
                 }
-                Console.WriteLine("Error. Please enter a number.");
+                Console.WriteLine("Error. Please enter a valid number.");
             }
         }
     }
