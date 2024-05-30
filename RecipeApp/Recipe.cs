@@ -1,59 +1,82 @@
-﻿
-using System;
+﻿using System;
+using System.Collections.Generic;
 
 namespace RecipeApp
 {
     public class Recipe
     {
-        public string Name { get; set; } // Name of the recipe
-        public Ingredient[] Ingredients { get; set; } // Array to store ingredients
-        public Step[] Steps { get; set; } // Array to store steps
+        public string Name { get; set; }
+        private List<Ingredient> Ingredients { get; set; }
+        private List<Step> Steps { get; set; }
 
-        // Constructor to initialize the recipe with name, number of ingredients, and number of steps
-        public Recipe(string name, int numIngredients, int numSteps)
+        public event Action<string> RecipeCaloriesExceeded;
+
+        public Recipe(string name)
         {
             Name = name;
-            Ingredients = new Ingredient[numIngredients]; // Initialize ingredients array
-            Steps = new Step[numSteps]; // Initialize steps array
+            Ingredients = new List<Ingredient>();
+            Steps = new List<Step>();
         }
 
-        // Display the recipe details including ingredients and steps
+        public void AddIngredient(Ingredient ingredient)
+        {
+            Ingredients.Add(ingredient);
+            if (GetTotalCalories() > 300)
+            {
+                RecipeCaloriesExceeded?.Invoke(Name);
+            }
+        }
+
+        public void AddStep(Step step)
+        {
+            Steps.Add(step);
+        }
+
         public void DisplayRecipe()
         {
-            Console.WriteLine($"\nRecipe: {Name}"); // Display recipe name
+            Console.WriteLine($"\nRecipe: {Name}");
 
-            // Display ingredients list
             Console.WriteLine("Ingredients:");
-            foreach (Ingredient ingredient in Ingredients)
+            foreach (var ingredient in Ingredients)
             {
-                Console.WriteLine($"{ingredient.Quantity} {ingredient.Unit} {ingredient.Name}");
+                Console.WriteLine($"{ingredient.Quantity} {ingredient.Unit} {ingredient.Name} ({ingredient.Calories} calories, {ingredient.FoodGroup})");
             }
 
-            // Display steps list
             Console.WriteLine("\nSteps:");
             int stepNumber = 1;
-            foreach (Step step in Steps)
+            foreach (var step in Steps)
             {
                 Console.WriteLine($"{stepNumber++}. {step.Description}");
             }
+
+            Console.WriteLine($"\nTotal Calories: {GetTotalCalories()}");
         }
 
-        // Scale the quantities of ingredients in the recipe by a given factor
         public void ScaleRecipe(double factor)
         {
-            foreach (Ingredient ingredient in Ingredients)
+            foreach (var ingredient in Ingredients)
             {
-                ingredient.Quantity *= factor; // Multiply each ingredient quantity by the scaling factor
+                ingredient.Quantity *= factor;
             }
         }
 
-        // Reset the quantities of ingredients in the recipe to 1.0
         public void ResetQuantities()
         {
-            foreach (Ingredient ingredient in Ingredients)
+            foreach (var ingredient in Ingredients)
             {
-                ingredient.Quantity = 1.0; // Reset each ingredient quantity to 1.0
+                ingredient.Quantity = 1.0;
             }
+        }
+
+        public int GetTotalCalories()
+        {
+            int totalCalories = 0;
+            foreach (var ingredient in Ingredients)
+            {
+                totalCalories += ingredient.Calories;
+            }
+            return totalCalories;
         }
     }
 }
+
