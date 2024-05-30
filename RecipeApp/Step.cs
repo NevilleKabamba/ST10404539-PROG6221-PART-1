@@ -2,7 +2,7 @@
 {
     public class Step
     {
-        public string Description { get; set; }
+        public string Description { get; set; } // Description of the step
 
         public Step(string description)
         {
