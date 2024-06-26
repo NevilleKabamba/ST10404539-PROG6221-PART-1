@@ -12,7 +12,7 @@ namespace RecipeAppWPF
         private List<Recipe> recipes = new List<Recipe>();
         public event Action<string> NotifyHighCalories;
 
-        // Constructor to initialize the MainWindow and set up the high-calorie notification
+        // Constructor to initialize the MainWindow and set up the high-calorie notification.
         public MainWindow()
         {
             InitializeComponent();
