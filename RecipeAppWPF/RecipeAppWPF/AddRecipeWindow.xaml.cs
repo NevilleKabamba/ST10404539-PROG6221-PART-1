@@ -11,7 +11,7 @@ namespace RecipeAppWPF
         private List<Recipe> recipes;
         private Recipe currentRecipe;
 
-        // Constructor to initialize the AddRecipeWindow and set up the recipe list
+        // Constructor to initialize the AddRecipeWindow and set up the recipe list.
         public AddRecipeWindow(List<Recipe> recipes)
         {
             InitializeComponent();
@@ -19,7 +19,7 @@ namespace RecipeAppWPF
             currentRecipe = new Recipe("", null);
         }
 
-        // Event handler for adding an ingredient
+        // Event handler for adding an ingredient.
         private void AddIngredient_Click(object sender, RoutedEventArgs e)
         {
             string name = IngredientName.Text;
