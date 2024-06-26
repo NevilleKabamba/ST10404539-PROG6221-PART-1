@@ -1,4 +1,4 @@
-﻿
+﻿## A
 ## How to Compile and Run the RecipeAppWPF
 RecipeApp is a console application designed for managing recipes. It allows users to create, display, scale, reset quantities, and clear recipes with ease. The application supports an unlimited number of recipes, allows users to name them, and organizes them alphabetically. Additionally, users can enter calorie information and food groups for each ingredient, and the application will notify the user if the total calories exceed a specified limit.
 
@@ -86,10 +86,12 @@ RecipeApp is a console application designed for managing recipes. It allows user
 
 1. Select option 7 from the main menu to exit the application.
 
+## B
 ## GitHub Link
 
 [RecipeApp GitHub Repository](https://github.com/NevilleKabamba/ST10404539-PROG6221-PART-1.git)
 
+## C
 ### Brief Description of Changes Based on Lecturer’s Feedback
 
 Several improvements were made to the original console-based recipe management application, based on the lecturer’s feedback. The key changes include:

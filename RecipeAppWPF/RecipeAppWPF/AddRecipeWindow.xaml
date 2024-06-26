@@ -10,7 +10,7 @@
             <TextBox x:Name="IngredientQuantity" Width="200" Margin="5" Text="Quantity" Foreground="Gray" GotFocus="RemovePlaceholderText" LostFocus="AddPlaceholderText"/>
             <TextBox x:Name="IngredientUnit" Width="200" Margin="5" Text="Unit" Foreground="Gray" GotFocus="RemovePlaceholderText" LostFocus="AddPlaceholderText"/>
             <TextBox x:Name="IngredientCalories" Width="200" Margin="5" Text="Calories" Foreground="Gray" GotFocus="RemovePlaceholderText" LostFocus="AddPlaceholderText"/>
-            <ComboBox x:Name="IngredientFoodGroup" Width="200" Margin="5">
+            <ComboBox x:Name="IngredientFoodGroup" Width="200" Margin="5" Text="FoodGroup" SelectionChanged="IngredientFoodGroup_SelectionChanged">
                 <ComboBoxItem Content="Carbohydrates"/>
                 <ComboBoxItem Content="Protein"/>
                 <ComboBoxItem Content="Fibre"/>

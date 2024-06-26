@@ -93,5 +93,10 @@ namespace RecipeAppWPF
                 else if (textBox == IngredientCalories) textBox.Text = "Calories";
             }
         }
+
+        private void IngredientFoodGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

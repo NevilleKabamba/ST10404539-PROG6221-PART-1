@@ -40,6 +40,7 @@ namespace RecipeAppWPF
             {
                 double factor = GetDoubleInput("Enter scaling factor (0.5, 2, or 3): ");
                 selectedRecipe.ScaleRecipe(factor);
+                MessageBox.Show("Recipe scaled.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -50,6 +51,7 @@ namespace RecipeAppWPF
             if (selectedRecipe != null)
             {
                 selectedRecipe.ResetQuantities();
+                MessageBox.Show("Quantities reset.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -60,6 +62,7 @@ namespace RecipeAppWPF
             if (selectedRecipe != null)
             {
                 recipes.Remove(selectedRecipe);
+                DisplayRecipes();
                 MessageBox.Show("Recipe cleared.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
@@ -103,7 +106,6 @@ namespace RecipeAppWPF
                 return null;
             }
 
-            DisplayRecipes();
             if (RecipesList.SelectedItem != null)
             {
                 string selectedRecipeName = RecipesList.SelectedItem.ToString();
