@@ -89,3 +89,12 @@ RecipeApp is a console application designed for managing recipes. It allows user
 ## GitHub Link
 
 [RecipeApp GitHub Repository](https://github.com/NevilleKabamba/ST10404539-PROG6221-PART-1.git)
+
+### Brief Description of Changes Based on Lecturer’s Feedback
+
+Several improvements were made to the original console-based recipe management application, based on the lecturer’s feedback. The key changes include:
+1.	Graphical User Interface (GUI): Transitioned the application from a console interface to a Windows Presentation Foundation (WPF) interface for better user experience and interaction.
+2.	Enhanced Functionality: Added features to filter recipes by ingredient, food group, and maximum calories, which were not present in the original console application.
+3.	User-Friendly Input Handling: Implemented input handling in the WPF interface to make it easier for users to enter data, with placeholder text and validation for numeric fields.
+4.	Notifications: Added notifications for high-calorie recipes, which provide immediate feedback to users when the total calories exceed a set threshold.
+5.	Code Refactoring: Refactored the code for better readability, maintainability, and separation of concerns, ensuring a clean and modular structure.
