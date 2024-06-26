@@ -12,23 +12,27 @@ namespace RecipeAppWPF
         private List<Recipe> recipes = new List<Recipe>();
         public event Action<string> NotifyHighCalories;
 
+        // Constructor to initialize the MainWindow and set up the high-calorie notification
         public MainWindow()
         {
             InitializeComponent();
             NotifyHighCalories += message => MessageBox.Show($"Notification: {message}", "High Calories", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
+        // Event handler for adding a recipe
         private void AddRecipe_Click(object sender, RoutedEventArgs e)
         {
             var addRecipeWindow = new AddRecipeWindow(recipes);
             addRecipeWindow.ShowDialog();
         }
 
+        // Event handler for displaying recipes
         private void DisplayRecipes_Click(object sender, RoutedEventArgs e)
         {
             DisplayRecipes();
         }
 
+        // Event handler for scaling a recipe
         private void ScaleRecipe_Click(object sender, RoutedEventArgs e)
         {
             var selectedRecipe = SelectRecipe();
@@ -39,6 +43,7 @@ namespace RecipeAppWPF
             }
         }
 
+        // Event handler for resetting quantities of a recipe
         private void ResetQuantities_Click(object sender, RoutedEventArgs e)
         {
             var selectedRecipe = SelectRecipe();
@@ -48,6 +53,7 @@ namespace RecipeAppWPF
             }
         }
 
+        // Event handler for clearing a recipe
         private void ClearRecipe_Click(object sender, RoutedEventArgs e)
         {
             var selectedRecipe = SelectRecipe();
@@ -58,6 +64,7 @@ namespace RecipeAppWPF
             }
         }
 
+        // Event handler for filtering recipes
         private void FilterRecipes_Click(object sender, RoutedEventArgs e)
         {
             string ingredient = IngredientFilter.Text.ToLower();
@@ -76,6 +83,7 @@ namespace RecipeAppWPF
             }
         }
 
+        // Displays the list of recipes
         private void DisplayRecipes(List<Recipe> recipesToDisplay = null)
         {
             RecipesList.Items.Clear();
@@ -86,6 +94,7 @@ namespace RecipeAppWPF
             }
         }
 
+        // Selects a recipe from the list
         private Recipe SelectRecipe()
         {
             if (!recipes.Any())
@@ -107,6 +116,7 @@ namespace RecipeAppWPF
             }
         }
 
+        // Gets a double input from the user
         private double GetDoubleInput(string message)
         {
             while (true)
@@ -120,6 +130,7 @@ namespace RecipeAppWPF
             }
         }
 
+        // Removes placeholder text when the TextBox gains focus
         private void RemovePlaceholderText(object sender, RoutedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
@@ -130,6 +141,7 @@ namespace RecipeAppWPF
             }
         }
 
+        // Adds placeholder text when the TextBox loses focus and is empty
         private void AddPlaceholderText(object sender, RoutedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
@@ -142,4 +154,3 @@ namespace RecipeAppWPF
         }
     }
 }
-
