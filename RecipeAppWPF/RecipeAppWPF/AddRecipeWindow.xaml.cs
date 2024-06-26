@@ -11,6 +11,7 @@ namespace RecipeAppWPF
         private List<Recipe> recipes;
         private Recipe currentRecipe;
 
+        // Constructor to initialize the AddRecipeWindow and set up the recipe list
         public AddRecipeWindow(List<Recipe> recipes)
         {
             InitializeComponent();
@@ -18,6 +19,7 @@ namespace RecipeAppWPF
             currentRecipe = new Recipe("", null);
         }
 
+        // Event handler for adding an ingredient
         private void AddIngredient_Click(object sender, RoutedEventArgs e)
         {
             string name = IngredientName.Text;
@@ -39,6 +41,7 @@ namespace RecipeAppWPF
             }
         }
 
+        // Event handler for saving the recipe
         private void SaveRecipe_Click(object sender, RoutedEventArgs e)
         {
             currentRecipe.Name = RecipeName.Text;
@@ -47,6 +50,7 @@ namespace RecipeAppWPF
             this.Close();
         }
 
+        // Clears the input fields for the ingredient
         private void ClearIngredientInputs()
         {
             IngredientName.Text = "Ingredient Name";
@@ -64,6 +68,7 @@ namespace RecipeAppWPF
             IngredientFoodGroup.SelectedIndex = -1;
         }
 
+        // Removes placeholder text when the TextBox gains focus
         private void RemovePlaceholderText(object sender, RoutedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
@@ -74,6 +79,7 @@ namespace RecipeAppWPF
             }
         }
 
+        // Adds placeholder text when the TextBox loses focus and is empty
         private void AddPlaceholderText(object sender, RoutedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
