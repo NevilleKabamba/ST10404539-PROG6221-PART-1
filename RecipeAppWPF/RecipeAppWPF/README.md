@@ -28,7 +28,7 @@
    - In Visual Studio, go to `Build -> Build Solution` or press `Ctrl+Shift+B`.
    - Ensure there are no errors in the build output.
 
-5. **Run the Application:**
+5. Run the Application:
    - Set `MainWindow.xaml` as the startup object.
    - Press `F5` or go to `Debug -> Start Debugging` to run the application.
 
