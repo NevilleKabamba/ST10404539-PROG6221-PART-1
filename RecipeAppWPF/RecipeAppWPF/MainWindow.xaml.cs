@@ -32,7 +32,7 @@ namespace RecipeAppWPF
             DisplayRecipes();
         }
 
-        // Event handler for scaling a recipe
+        // Event handler for scaling a recipe.
         private void ScaleRecipe_Click(object sender, RoutedEventArgs e)
         {
             var selectedRecipe = SelectRecipe();
