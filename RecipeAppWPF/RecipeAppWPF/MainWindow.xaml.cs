@@ -19,7 +19,7 @@ namespace RecipeAppWPF
             NotifyHighCalories += message => MessageBox.Show($"Notification: {message}", "High Calories", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
-        // Event handler for adding a recipe
+        // Event handler for adding a recipe.
         private void AddRecipe_Click(object sender, RoutedEventArgs e)
         {
             var addRecipeWindow = new AddRecipeWindow(recipes);
