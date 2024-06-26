@@ -8,7 +8,7 @@
         public double Calories { get; set; }
         public string FoodGroup { get; set; }
 
-        // Constructor to initialize an Ingredient object
+        // Constructor to initialize an Ingredient object.
         public Ingredient(string name, double quantity, string unit, double calories, string foodGroup)
         {
             Name = name;
