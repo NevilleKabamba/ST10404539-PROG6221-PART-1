@@ -41,7 +41,7 @@ namespace RecipeAppWPF
             }
         }
 
-        // Event handler for saving the recipe
+        // Event handler for saving the recipe.
         private void SaveRecipe_Click(object sender, RoutedEventArgs e)
         {
             currentRecipe.Name = RecipeName.Text;
@@ -50,7 +50,7 @@ namespace RecipeAppWPF
             this.Close();
         }
 
-        // Clears the input fields for the ingredient
+        // Clears the input fields for the ingredient.
         private void ClearIngredientInputs()
         {
             IngredientName.Text = "Ingredient Name";
@@ -68,7 +68,7 @@ namespace RecipeAppWPF
             IngredientFoodGroup.SelectedIndex = -1;
         }
 
-        // Removes placeholder text when the TextBox gains focus
+        // Removes placeholder text when the TextBox gains focus.
         private void RemovePlaceholderText(object sender, RoutedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
@@ -79,7 +79,7 @@ namespace RecipeAppWPF
             }
         }
 
-        // Adds placeholder text when the TextBox loses focus and is empty
+        // Adds placeholder text when the TextBox loses focus and is empty.
         private void AddPlaceholderText(object sender, RoutedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
