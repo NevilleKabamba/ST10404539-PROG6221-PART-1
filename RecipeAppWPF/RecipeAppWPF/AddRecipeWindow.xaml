@@ -1,0 +1,26 @@
+﻿<Window x:Class="RecipeAppWPF.AddRecipeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Add Recipe" Height="350" Width="400">
+    <Grid Background="LightBlue">
+        <StackPanel>
+            <TextBlock Text="Add New Recipe" FontSize="24" HorizontalAlignment="Center" Margin="10"/>
+            <TextBox x:Name="RecipeName" Width="200" Margin="5" Text="Recipe Name" Foreground="Gray" GotFocus="RemovePlaceholderText" LostFocus="AddPlaceholderText"/>
+            <TextBox x:Name="IngredientName" Width="200" Margin="5" Text="Ingredient Name" Foreground="Gray" GotFocus="RemovePlaceholderText" LostFocus="AddPlaceholderText"/>
+            <TextBox x:Name="IngredientQuantity" Width="200" Margin="5" Text="Quantity" Foreground="Gray" GotFocus="RemovePlaceholderText" LostFocus="AddPlaceholderText"/>
+            <TextBox x:Name="IngredientUnit" Width="200" Margin="5" Text="Unit" Foreground="Gray" GotFocus="RemovePlaceholderText" LostFocus="AddPlaceholderText"/>
+            <TextBox x:Name="IngredientCalories" Width="200" Margin="5" Text="Calories" Foreground="Gray" GotFocus="RemovePlaceholderText" LostFocus="AddPlaceholderText"/>
+            <ComboBox x:Name="IngredientFoodGroup" Width="200" Margin="5">
+                <ComboBoxItem Content="Carbohydrates"/>
+                <ComboBoxItem Content="Protein"/>
+                <ComboBoxItem Content="Fibre"/>
+                <ComboBoxItem Content="Fats"/>
+                <ComboBoxItem Content="Minerals"/>
+                <ComboBoxItem Content="Vitamins"/>
+                <ComboBoxItem Content="Water"/>
+            </ComboBox>
+            <Button Content="Add Ingredient" Width="100" Margin="5" Click="AddIngredient_Click"/>
+            <Button Content="Save Recipe" Width="100" Margin="5" Click="SaveRecipe_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

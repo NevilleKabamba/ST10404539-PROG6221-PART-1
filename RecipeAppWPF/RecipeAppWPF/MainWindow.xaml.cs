@@ -1,0 +1,145 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+
+namespace RecipeAppWPF
+{
+    public partial class MainWindow : Window
+    {
+        private List<Recipe> recipes = new List<Recipe>();
+        public event Action<string> NotifyHighCalories;
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            NotifyHighCalories += message => MessageBox.Show($"Notification: {message}", "High Calories", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+
+        private void AddRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            var addRecipeWindow = new AddRecipeWindow(recipes);
+            addRecipeWindow.ShowDialog();
+        }
+
+        private void DisplayRecipes_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayRecipes();
+        }
+
+        private void ScaleRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedRecipe = SelectRecipe();
+            if (selectedRecipe != null)
+            {
+                double factor = GetDoubleInput("Enter scaling factor (0.5, 2, or 3): ");
+                selectedRecipe.ScaleRecipe(factor);
+            }
+        }
+
+        private void ResetQuantities_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedRecipe = SelectRecipe();
+            if (selectedRecipe != null)
+            {
+                selectedRecipe.ResetQuantities();
+            }
+        }
+
+        private void ClearRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedRecipe = SelectRecipe();
+            if (selectedRecipe != null)
+            {
+                recipes.Remove(selectedRecipe);
+                MessageBox.Show("Recipe cleared.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void FilterRecipes_Click(object sender, RoutedEventArgs e)
+        {
+            string ingredient = IngredientFilter.Text.ToLower();
+            string foodGroup = (FoodGroupFilter.SelectedItem as ComboBoxItem)?.Content.ToString().ToLower();
+            if (double.TryParse(CaloriesFilter.Text, out double maxCalories))
+            {
+                var filteredRecipes = recipes.Where(r =>
+                    (string.IsNullOrEmpty(ingredient) || r.Ingredients.Any(i => i.Name.ToLower().Contains(ingredient))) &&
+                    (string.IsNullOrEmpty(foodGroup) || r.Ingredients.Any(i => i.FoodGroup.ToLower() == foodGroup)) &&
+                    (maxCalories == 0 || r.TotalCalories() <= maxCalories)).ToList();
+                DisplayRecipes(filteredRecipes);
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid number for calories.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void DisplayRecipes(List<Recipe> recipesToDisplay = null)
+        {
+            RecipesList.Items.Clear();
+            var recipesList = recipesToDisplay ?? recipes.OrderBy(r => r.Name).ToList();
+            foreach (var recipe in recipesList)
+            {
+                RecipesList.Items.Add(recipe.Name);
+            }
+        }
+
+        private Recipe SelectRecipe()
+        {
+            if (!recipes.Any())
+            {
+                MessageBox.Show("No recipes available.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return null;
+            }
+
+            DisplayRecipes();
+            if (RecipesList.SelectedItem != null)
+            {
+                string selectedRecipeName = RecipesList.SelectedItem.ToString();
+                return recipes.FirstOrDefault(r => r.Name == selectedRecipeName);
+            }
+            else
+            {
+                MessageBox.Show("Please select a recipe from the list.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return null;
+            }
+        }
+
+        private double GetDoubleInput(string message)
+        {
+            while (true)
+            {
+                string input = Microsoft.VisualBasic.Interaction.InputBox(message, "Input", "0");
+                if (double.TryParse(input, out double value))
+                {
+                    return value;
+                }
+                MessageBox.Show("Error: Please enter a valid number.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void RemovePlaceholderText(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null && textBox.Foreground == Brushes.Gray)
+            {
+                textBox.Text = "";
+                textBox.Foreground = Brushes.Black;
+            }
+        }
+
+        private void AddPlaceholderText(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null && string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                textBox.Foreground = Brushes.Gray;
+                if (textBox == IngredientFilter) textBox.Text = "Ingredient";
+                else if (textBox == CaloriesFilter) textBox.Text = "Max Calories";
+            }
+        }
+    }
+}
+
